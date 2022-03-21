@@ -37,15 +37,16 @@ public:
 
    /*                                           */
    /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
-   void findInitialPosition();
+   struct startingCoord {int startingRow; int startingCol;};
+   startingCoord getStartingPosition();
 
 private:
     Env env;
     int rows;
     int cols;
 
-    // Whereby index 0 is the starting row; index 1 is the starting col.
-    int startingCoordinates[2];
+    int startingRow;
+    int startingCol;
    /*                                           */
 
 };
