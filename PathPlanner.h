@@ -44,17 +44,17 @@ public:
    void setClosedList(NodeList* closedList);
 
 private:
-    Env env;
+    Env env{};
     int envRows;
     int envCols;
 
-    int startRow;
-    int startCol;
+    int startRow{};
+    int startCol{};
 
-    int goalRow;
-    int goalCol;
+    int goalRow{};
+    int goalCol{};
 
-    NodeList* closedList;
+    NodeList* closedList{};
    /*                                           */
 
 };

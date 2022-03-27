@@ -42,6 +42,10 @@ int main(int argc, char** argv){
     NodeList* solution = p.getPath();
     std::cout << "\nSolution: " << std::endl;
     printPath(env, solution);
+
+
+    delete reachablePositions;
+    delete solution;
     std::cin.get();
 
 

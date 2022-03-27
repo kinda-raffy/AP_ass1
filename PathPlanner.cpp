@@ -16,7 +16,9 @@ PathPlanner::PathPlanner(Env env, int rows, int cols){
    this->goalPosition(goal.Row, goal.Col);
 }
 
-PathPlanner::~PathPlanner()= default;
+PathPlanner::~PathPlanner() {
+   delete this->closedList;
+};
 
 
 void PathPlanner::initialPosition(int row, int col){
@@ -39,7 +41,6 @@ PathPlanner::Coordinates PathPlanner::getStartingPosition(){
                 row = i;
                 col = j;
                 found = true;
-                // TODO: Optimize.
             }
         }
     } return Coordinates {row, col};
@@ -68,7 +69,7 @@ NodeList* PathPlanner::getReachableNodes() {
    NodeList openList;
    Node start = Node(this->startRow, this->startCol, 0);
    openList.addBack(&start);
-   Node *p = &start;
+   NodePtr p = &start;
 
    NodeList closedList;
 
@@ -87,7 +88,7 @@ NodeList* PathPlanner::getReachableNodes() {
          if (reachable[i] == 1) {
             int qRow = 0;
             int qCol = 0;
-            // Set q attributes.
+            // Set q attributes depending on direction.
             if (i == 0) {
                qRow = p->getRow() - 1;
                qCol = p->getCol();
@@ -120,11 +121,8 @@ NodeList* PathPlanner::getReachableNodes() {
             pRefreshed = true;
          }
       }
-
-      // If p is null, then the open-list is empty.
-      if (!pRefreshed && closedList.getLength() > 0) {
-         empty = true;
-      }
+      // If p is not refreshed, then the open-list is empty.
+      if (!pRefreshed) { empty = true; }
    }
 
    // Set closed list.
@@ -133,7 +131,7 @@ NodeList* PathPlanner::getReachableNodes() {
    return new NodeList(closedList);
 }
 
-
+// FIXME: Never ending loop when S and G are next to each other.
 NodeList* PathPlanner::getPath(){
    // Create path list.
    NodeList path;
@@ -182,14 +180,14 @@ NodeList* PathPlanner::getPath(){
             }
          }
          // Iterate through valid nodes array.
-         for (int i = 0; i < 4; i++) {
-            if ((validNode[i] != nullptr)
-                && (validNode[i]->getDistanceToS() == p->getDistanceToS() - 1)
-                && (!path.containsNode(validNode[i]))) {
+         for (auto & i : validNode) {
+            if ((i != nullptr)
+                && (i->getDistanceToS() == p->getDistanceToS() - 1)
+                && (!path.containsNode(i))) {
                // Add to path list.
-               path.addBack(validNode[i]);
+               path.addBack(i);
                // Set p to valid node.
-               p = validNode[i];
+               p = i;
             }
          }
          // If p is one away from start node, then the path is complete.
