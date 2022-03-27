@@ -19,6 +19,9 @@ void readEnvStdin(Env env);
 // To be implemented for Milestone 3
 void printPath(Env env, NodeList* solution);
 
+// Print reachable nodes from a node to standard output. FOR TESTING.
+void printReachablePositions(Env env, NodeList* reachablePositions);
+
 int main(int argc, char** argv){
 //    // THESE ARE SOME EXAMPLE FUNCTIONS TO HELP TEST YOUR CODE
 //    // AS YOU WORK ON MILESTONE 2. YOU CAN UPDATE THEM YOURSELF
@@ -33,8 +36,13 @@ int main(int argc, char** argv){
     Env env;
     readEnvStdin(env);
 
-    PathPlanner p(env, 20, 20);
-//    p.getReachableNodes();
+    PathPlanner p(env, ENV_DIM, ENV_DIM);
+    NodeList* reachablePositions = p.getReachableNodes();
+    printReachablePositions(env, reachablePositions);
+    NodeList* solution = p.getPath();
+    std::cout << "\nSolution: " << std::endl;
+    printPath(env, solution);
+    std::cin.get();
 
 
 //    // Solve using forwardSearch
@@ -65,11 +73,88 @@ void readEnvStdin(Env env){
 }
 
 void printPath(Env env, NodeList* solution) {
-    //TODO
+   // Initialise printedNodes array.
+//   NodeList* printedNodes = new NodeList();
+//    for (int i = 0; i<=ENV_DIM - 1; i++) {
+//        for (int j = 0; j<=ENV_DIM - 1; j++) {
+//            if (solution->containsCdr(i, j)) {
+//                if (solution->containsCdr(i - 1, j) && !(printedNodes->containsCdr(i - 1, j))) {
+//                    std::cout << "^";  // up
+//                } else if (solution->containsCdr(i, j + 1)
+//                && !(printedNodes->containsCdr(i, j + 1))
+//                && (printedNodes->get(printedNodes->getLength() - 1)->getCol() <= j)) {
+//                   std::cout << ">";  // right
+////                   NodePtr lastPrintedNode = printedNodes->get(printedNodes->getLength() - 1);
+////                   if (abs(lastPrintedNode->getRow() - i) == 1 && lastPrintedNode->getCol() >= j) {
+////                      std::cout << "<";
+////                   } else {
+////                      std::cout << ">";
+////                   }
+//                } else if (solution->containsCdr(i + 1, j) && !(printedNodes->containsCdr(i + 1, j))) {
+//                    std::cout << "v";  // down
+//                } else if (solution->containsCdr(i, j - 1)
+//                && !(printedNodes->containsCdr(i, j - 1))
+//                && (printedNodes->get(printedNodes->getLength() - 1)->getCol() >= j)) {
+//                    std::cout << "<";  // left
+//                } else {
+//                    std::cout << "#";  // empty
+//                }
+//                printedNodes->addBack(solution->getCdr(i, j));
+//            } else {
+//                std::cout << env[i][j];
+//            }
+//        }
+//        std::cout << std::endl;
+//    } delete printedNodes;
+
+    // Iterate through the solution and print out the path.
+    std::string previousDirection;
+    // Solution list is reversed.
+    for (int i = solution->getLength() - 1; i >= 0; i--) {
+        NodePtr p = solution->get(i);
+
+        // Replace element with arrow if the next node is up, right, down or left.
+        if (solution->containsCdr(p->getRow() - 1, p->getCol()) && previousDirection != "down") {
+           env[p->getRow()][p->getCol()] = '^';
+           previousDirection = "up";
+        }
+        else if (solution->containsCdr(p->getRow(), p->getCol() + 1) && previousDirection != "left") {
+           env[p->getRow()][p->getCol()] = '>';
+           previousDirection = "right";
+        }
+        else if (solution->containsCdr(p->getRow() + 1, p->getCol()) && previousDirection != "up") {
+           env[p->getRow()][p->getCol()] = 'v';
+           previousDirection = "down";
+        }
+        else if (solution->containsCdr(p->getRow(), p->getCol() - 1) && previousDirection != "right") {
+           env[p->getRow()][p->getCol()] = '<';
+           previousDirection = "left";
+        }
+    }
+
+    // Print the environment.
+    for (int i = 0; i<=ENV_DIM - 1; i++) {
+        for (int j = 0; j<=ENV_DIM - 1; j++) {
+            std::cout << env[i][j];
+        }
+        std::cout << std::endl;
+    }
+
+
 }
 
 void printReachablePositions(Env env, NodeList* reachablePositions){
-    //TODO
+    // Layer reachablePositions over the environment.
+    for (int i = 0; i<=ENV_DIM - 1; i++) {
+        for (int j = 0; j<=ENV_DIM - 1; j++) {
+            if (reachablePositions->containsCdr(i, j)) {
+                std::cout << "X";
+            } else {
+                std::cout << env[i][j];
+            }
+        }
+        std::cout << std::endl;
+    }
 }
 
 void testNode() {

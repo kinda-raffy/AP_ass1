@@ -9,19 +9,17 @@ Node::Node(int row, int col, int distanceToS){
    this->distanceToS = distanceToS;
 }
     
-Node::~Node(){
-   std::cout << "\n" << "Node Destroyed" << "\n";
-}
+Node::~Node()= default;
 
-int Node::getRow(){
+int Node::getRow() const{
    return this->row;
 }
 
-int Node::getCol(){
+int Node::getCol() const{
     return this->col;
 }
 
-int Node::getDistanceToS(){
+int Node::getDistanceToS() const{
     return this->distanceToS;
 }
 

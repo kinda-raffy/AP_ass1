@@ -14,7 +14,7 @@ public:
    /*                                           */
 
 
-   // Initialise with a given Env of size (rows,cols)
+   // Initialise with a given Env of size (envRows,envCols)
    PathPlanner(Env env, int rows, int cols);
 
    // Clean-up
@@ -37,16 +37,24 @@ public:
 
    /*                                           */
    /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
-   struct startingCoord {int startingRow; int startingCol;};
-   startingCoord getStartingPosition();
+   struct Coordinates {int Row; int Col;};
+   Coordinates getStartingPosition();
+   Coordinates getGoalPosition();
+   void goalPosition(int row, int col);
+   void setClosedList(NodeList* closedList);
 
 private:
     Env env;
-    int rows;
-    int cols;
+    int envRows;
+    int envCols;
 
-    int startingRow;
-    int startingCol;
+    int startRow;
+    int startCol;
+
+    int goalRow;
+    int goalCol;
+
+    NodeList* closedList;
    /*                                           */
 
 };

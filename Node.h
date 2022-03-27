@@ -12,13 +12,13 @@ public:
    /*                                           */
 
    // get row-co-ordinate
-   int getRow();
+   int getRow() const;
 
    // get Column-co-ordinate
-   int getCol();
+   int getCol() const;
 
    // getters and setters for distance to source
-   int getDistanceToS();
+   int getDistanceToS() const;
    void setDistanceToS(int distanceToS);
 
 

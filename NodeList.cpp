@@ -10,12 +10,23 @@ NodeList::NodeList(){
 
 
 NodeList::~NodeList(){
-   std::cout << "\n" << "NodeList Destroyed" << "\n";
+   // Delete node in nodes array.
+   for(int i = 0; i < this->length; i++){
+      delete this->nodes[i];
+   }
 }
 
-NodeList::NodeList(NodeList& other){
-    // TODO
+NodeList::NodeList(NodeList& other) :
+   length(other.length)
+{
+    // Deep copy of nodes array.
+    for(int i = 0; i < this->length; i++){
+       this->nodes[i] = new Node(other.nodes[i]->getRow(),
+                                 other.nodes[i]->getCol(),
+                                 other.nodes[i]->getDistanceToS());
+    }
 }
+
 
 
 int NodeList::getLength(){
@@ -34,8 +45,11 @@ NodePtr NodeList::get(int i){
 void NodeList::addBack(NodePtr newNode){
     // Increase count.
    (this->length)++;
+    // Add a COPY node element to the BACK of the nodelist
+   nodes[this->length - 1] = new Node(newNode->getRow(), newNode->getCol(), newNode->getDistanceToS());
+
     // Append nodePtr to nodeList.
-    nodes[this->length - 1] = newNode;
+    // nodes[this->length - 1] = newNode;
 }
 
 void NodeList::removeBack(NodePtr remNode) {
@@ -48,14 +62,33 @@ void NodeList::removeBack(NodePtr remNode) {
 
 bool NodeList::containsNode(NodePtr node){
     bool found = false;
-    for (int i = 0; i <= this->length; i++) {
-        if (node == nodes[i]) {
+    for (int i = 0; (i < this->length && !found && this->length != 0); i++) {
+        if (node->getRow() == nodes[i]->getRow() && node->getCol() == nodes[i]->getCol()) {
             found = true;  // FIXME: Should Break as soon as it is found.
         }
     } return found;
 }
 
+bool NodeList::containsCdr(int row, int col){
+    bool found = false;
+    for (int i = 0; (i < this->length && !found && this->length != 0); i++) {
+        if (row == nodes[i]->getRow() && col == nodes[i]->getCol()) {
+            found = true;  // FIXME: Should Break as soon as it is found.
+        }
+    } return found;
+}
+
+NodePtr NodeList::getCdr(int row, int col){
+    NodePtr node = nullptr;
+    for (int i = 0; (i < this->length && this->length != 0); i++) {
+        if (row == nodes[i]->getRow() && col == nodes[i]->getCol()) {
+            node = nodes[i];
+        }
+    } return node;
+}
+
 void NodeList::clear(){
+    // TODO: Update this to delete node on the heap.
     int arrayLen = this->length - 1;
     for (int i = 0; i <= arrayLen; i++) {
         nodes[i] = nullptr;

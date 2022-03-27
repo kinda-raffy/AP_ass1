@@ -43,7 +43,14 @@ public:
 
    /*                                           */
    /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
+   // Remove the back node.
    void removeBack(NodePtr remNode);
+
+   // Whether a node is in the list with the same co-ordinates.
+   bool containsCdr(int row, int col);
+
+   // Grabs node from the list with the same co-ordinates.
+   NodePtr getCdr(int row, int col);
    /*                                           */
 
 
