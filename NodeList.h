@@ -43,14 +43,17 @@ public:
 
    /*                                           */
    /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
-   // Remove the back node.
-   void removeBack(NodePtr remNode);
+   // Define constants.
+   #define DEFAULT_ARRAY_LEN 20
 
    // Whether a node is in the list with the same co-ordinates.
    bool containsCdr(int row, int col);
 
    // Grabs node from the list with the same co-ordinates.
    NodePtr getCdr(int row, int col);
+
+   // Resize NodeList by constant factor of 20.
+   void resizeNodeList();
    /*                                           */
 
 
@@ -60,8 +63,8 @@ private:
 
    // NodeList: list of node objects
    // You may assume a fixed size for M1, M2, M3
-   NodePtr    nodes[NODE_LIST_ARRAY_MAX_SIZE];
-
+   // NodePtr    nodes[NODE_LIST_ARRAY_MAX_SIZE];
+   Node** nodes;
    // Number of nodes currently in the NodeList
    int      length;
 

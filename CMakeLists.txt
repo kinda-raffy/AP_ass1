@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 project(ap_ass1)
 
 set(CMAKE_CXX_STANDARD 14)
-#set(CMAKE_CXX_FLAGS "-Wall -Werror -std=c++14 -O")
+set(CMAKE_CXX_FLAGS "-Wall -Werror -std=c++14 -O")
 
 include_directories(.)
 

@@ -37,11 +37,10 @@ public:
 
    /*                                           */
    /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
-   struct Coordinates {int Row; int Col;};
-   Coordinates getStartingPosition();
-   Coordinates getGoalPosition();
+   NodePtr getInitialPosition();
+   NodePtr getGoalPosition();
    void goalPosition(int row, int col);
-   void setClosedList(NodeList* closedList);
+   bool validPathNode(NodePtr i, NodePtr p, NodeList* pathList);
 
 private:
     Env env{};

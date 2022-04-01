@@ -9,11 +9,15 @@
 
 // A 2D array to represent the maze or observations
 // REMEMBER: in a grid, the location (x,y) is found by grid[y][x]!
-typedef char Env[ENV_DIM][ENV_DIM];
+//typedef char Env[ENV_DIM][ENV_DIM];
+typedef char** Env;
 
 #define SYMBOL_WALL     '='
 #define SYMBOL_EMPTY    '.'
 #define SYMBOL_GOAL     'G'
 #define SYMBOL_START    'S'
+
+#define END_OF_ARRAY 1
+#define END_OF_ROW 1
 
 #endif // COSC_ASS_ONE_TYPES

@@ -1,3 +1,3 @@
-R:/dev/school/y2/adv_prog/ass/ap_ass1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-R:/dev/school/y2/adv_prog/ass/ap_ass1/cmake-build-debug/CMakeFiles/ap_ass1.dir
-R:/dev/school/y2/adv_prog/ass/ap_ass1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/mnt/r/dev/school/y2/adv_prog/ass/ap_ass1/cmake-build-debug/CMakeFiles/ap_ass1.dir
+/mnt/r/dev/school/y2/adv_prog/ass/ap_ass1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/mnt/r/dev/school/y2/adv_prog/ass/ap_ass1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
